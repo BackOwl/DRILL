@@ -70,6 +70,7 @@ while 1:
         case =1
         x=0
         y=80
+        manpai=0
 
     
 delay(5)
