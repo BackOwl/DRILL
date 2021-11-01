@@ -57,10 +57,10 @@ def draw_line_basic(p1, p2):
     x1,y1= p1[0],p1[1]
     x2,y2 = p2[0], p2[1]
 
-    for i in range(0,1800,2):
+    for i in range(0,1800,5):
         t = i/360*2*math.pi
-        x = -60*math.cos(t) + 200*math.cos(t*0.6)
-        y = -60*math.sin(t) - 200*math.sin(t*0.6)
+        x = -140*math.cos(t) + 200*math.cos(t*0.7)
+        y = -140*math.sin(t) - 200*math.sin(t*0.7)
         draw_point((x,y))
     draw_point(p2)
     # fill here
@@ -74,7 +74,7 @@ def draw_line(p1, p2):
     x1,y1= p1[0],p1[1]
     x2,y2 = p2[0], p2[1]
 
-    for i in range(0,1800,2):
+    for i in range(0,1800,5):
         t = i/360*2*math.pi
         x = 120*math.cos(t) + 200*math.cos(t*0.6)
         y = 120*math.sin(t) - 200*math.sin(t*0.6)
@@ -88,8 +88,8 @@ def draw_line(p1, p2):
 
 
 prepare_turtle_canvas()
-#draw_line_basic((-100,50),(100,50))
 draw_line((-100,50),(100,50))
+#draw_line((-100,50),(100,50))
 turtle.done()
 # fill here
 
