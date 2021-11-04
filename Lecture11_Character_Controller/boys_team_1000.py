@@ -19,7 +19,6 @@ class Boy:
         if Boy.image ==None:
             Boy.image = load_image('run_animation.png')
 
-
     def update(self):
         self.frame = (self.frame + 1) % 8
         self.x += 5
