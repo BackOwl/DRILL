@@ -30,12 +30,16 @@ class Ball:
 
 #
     #
-    #크기 랜덤설정, 높이를 랜덤으로 설정 후 높이를 일정한 크기로 나누어 크기가 클수록 빠르게 하였습니다
+    #크기 랜덤설정(50~100), 높이를 랜덤으로 설정 후 높이를 일정한 크기로 나누어 새가 있는 높이가
+    #가 클수록 빠르게 하였습니다
     #return 0,0,0,0
 
     def draw(self):
         #self.image.draw(self.x, self.y)
-        self.image.clip_draw(int(self.frame) * 100, 0, 100,  100, self.x, self.y, self.big,self.big)
+        if self.dir ==1:
+            self.image.clip_draw(int(self.frame) * 100, 0, 100,  100, self.x, self.y, self.big,self.big)
+        elif self.dir ==-1:
+            self.image.clip_draw(int(self.frame) * 100, -1, 100, 100, self.x, self.y, self.big, self.big)
         # fill here for draw
 
     def update(self):
