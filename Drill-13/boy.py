@@ -1,7 +1,6 @@
 import game_framework
 from pico2d import *
 from ball import Ball
-#from bird import Bird
 
 import game_world
 
@@ -135,12 +134,10 @@ class Boy:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
-        #self.team = [Ball() for i in range(5)]
 
     def get_bb(self):
         # fill here
-        return self.x -50, self.y -50, self.x +50, self.y +50
-
+        return self.x - 50, self.y - 50, self.x + 50, self.y + 50
 
 
     def fire_ball(self):
@@ -152,24 +149,20 @@ class Boy:
         self.event_que.insert(0, event)
 
     def update(self):
+
         self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
             self.cur_state.exit(self, event)
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
-       # for bird in self.team:
-         #   bird.update()
-        #delay(0.9)
+
 
     def draw(self):
         self.cur_state.draw(self)
         self.font.draw(self.x - 60, self.y + 50, '(Time: %3.2f)' % get_time(), (255, 255, 0))
-        #for bird in self.team:
-         #   bird.draw()
         draw_rectangle(*self.get_bb())
-        #fill here
-
+        debug_print('Velocity :' + str(self.velocity) + '  Dir:' + str(self.dir) + ' Frame Time:' + str(game_framework.frame_time))
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:

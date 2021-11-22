@@ -3,53 +3,41 @@ from pico2d import *
 import game_world
 import game_framework
 
-PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-RUN_SPEED_KMPH = 20.0  # Km / Hour
-RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-
-# Boy Action Speed
-TIME_PER_ACTION = 0.5
-ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
-FRAMES_PER_ACTION = 8
 class Ball:
     image = None
 
     def __init__(self):
         if Ball.image == None:
-            Ball.image = load_image('bird100x100x14.png')
-        self.x, self.y= random.randint(0, 1600-1), random.randint(100,200)
-        self.dir = 1
-        self.big = random.randint(50,100)
-        self.fall_speed = self.y %100
-        self.frame = 0
-
+            Ball.image = load_image('ball21x21.png')
+        self.x, self.y, self.fall_speed = random.randint(0, 1600-1), 60, 0
     def get_bb(self):
-        pass
-
-#
-    #
-    #크기 랜덤설정(50~100), 높이를 랜덤으로 설정 후 높이를 일정한 크기로 나누어 새가 있는 높이가
-    #가 클수록 빠르게 하였습니다
-    #return 0,0,0,0
+        return self.x -10, self.y -10, self.x +10, self.y +10
 
     def draw(self):
-        #self.image.draw(self.x, self.y)
-        if self.dir ==1:
-            self.image.clip_draw(int(self.frame) * 100, 0, 100,  100, self.x, self.y, self.big,self.big)
-        elif self.dir ==-1:
-            self.image.clip_draw(int(self.frame) * 100, -1, 100, 100, self.x, self.y, self.big, self.big)
+        self.image.draw(self.x, self.y)
+        draw_rectangle(*self.get_bb())
         # fill here for draw
 
     def update(self):
-        self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 14
-        self.x += self.dir*self.fall_speed * game_framework.frame_time
-        if self.x < self.big or self.x > 1600 - self.big:
-            self.dir *=-1
+        self.y -= self.fall_speed * game_framework.frame_time
 
-    #fill here for def stop
+        # fill here for def stop
+    def stop(self):
+        self.fall_speed =0
+        self.y =10
+    # fill here
+    # class BigBall
 
+class BigBall(Ball):
+    MIN_FALL_SPEED = 50# 50 pps = 1.5 meter per sec
+    MAX_FALL_SPEED = 200# 200 pps = 6 meter per sec
+    image = None
 
-# fill here
-# class BigBall
+    def __init__(self):
+        if BigBall.image == None:
+            BigBall.image = load_image('ball41x41.png')
+        self.x, self.y = random.randint(0,1600-1),500
+        self.fall_speed = random.randint(BigBall.MIN_FALL_SPEED,BigBall.MAX_FALL_SPEED)
+
+    def get_bb(self):
+        return self.x - 20, self.y -20, self.x +20, self.y +20
