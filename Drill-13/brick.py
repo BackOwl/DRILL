@@ -24,13 +24,22 @@ class Brick:
             self.x = 0
             self.speed = -self.speed
 
-
         for ball in sever.balls.copy():
             if collision.collide(self,ball):
                 self.attach_ball(ball)
                 sever.balls.remove(ball)
 
 
+
+                # 자식의 개수를 확인
+        if len(self.child_ball) > 10:
+             # 부모 자식관계를 끊기
+            # 가지고 있던 자식들을 balls로 보낸다
+            for ball in self.child_ball.copy():
+                sever.balls.append(ball)
+                self.child_ball.remove(ball)
+                ball.remove_parent()
+            game_world.remove_object(self)
 
 
 

@@ -2,7 +2,8 @@ import random
 from pico2d import *
 import game_world
 import game_framework
-import brick
+import sever
+import collision
 
 
 class Ball:
@@ -31,9 +32,15 @@ class Ball:
         else:
             self.x, self.y = self.parent.x+self.rx, self.parent.y+self.ry
 
+
+
     def set_parent(self,brick):
         self.parent = brick
         self.rx,self.ry=  self.x -brick.x , self.y - brick.y
+
+    def remove_parent(self):
+        self.parent = None
+        self.rx, self.ry = 0,0
 
     def stop(self):
         self.fall_speed = 0

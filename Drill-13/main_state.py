@@ -71,11 +71,11 @@ def update():
             #sever.balls.remove(ball)
             #game_world.remove_object(ball)
             pass
-        elif collision.collide(ball,sever.brick):
+        #elif collision.collide(ball,sever.brick):
             # 발판과 충돌이 발생했을 경우 발판에 볼을 담음
-            sever.brick.attach_ball(ball)
-            sever.balls.remove(ball) # 발판에 포함되었기 때문에 충돌체크 x
-            sever.brick.attach_ball(ball)
+            #sever.brick.attach_ball(ball)
+            #sever.balls.remove(ball) # 발판에 포함되었기 때문에 충돌체크 x
+            #sever.brick.attach_ball(ball)
         else: #볼이 발판볼과 충돌
             for brick_ball in sever.brick.child_ball:
                 if collision.collide(ball, brick_ball):
