@@ -14,11 +14,10 @@ class Ball:
         if Ball.image == None:
             Ball.image = load_image('ball21x21.png')
         self.x, self.y, self.fall_speed = random.randint(0, 1600-1), 600, random.randint(Ball.MIN_FALL_SPEED, Ball.MAX_FALL_SPEED)
-        self.brick_speed = 0
-        self.moving = False
+        self.parent = None
+        self.rx,self.ry =0,0
     def get_bb(self):
         # fill here
-
         return self.x - 10, self.y - 10, self.x + 10, self.y + 10
 
     def draw(self):
@@ -27,14 +26,18 @@ class Ball:
         draw_rectangle(*self.get_bb())
 
     def update(self):
-        self.y -= self.fall_speed * game_framework.frame_time
-        self.x = self.x +game_framework.frame_time * self.brick_speed
+        if self.parent is None: #부모가 없을때
+            self.y -= self.fall_speed * game_framework.frame_time
+        else:
+            self.x, self.y = self.parent.x+self.rx, self.parent.y+self.ry
 
-    def move(self,brick):
-        self.brick_speed = brick.speed
-
+    def set_parent(self,brick):
+        self.parent = brick
+        self.rx,self.ry=  self.x -brick.x , self.y - brick.y
 
     def stop(self):
         self.fall_speed = 0
+
+
 
 

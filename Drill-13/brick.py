@@ -12,6 +12,8 @@ class Brick:
         self.x, self.y = 100, 200
         self.speed = 200 # 200 pixel per second
 
+        self.child_ball =[] # 발판에 속한 볼의 리스트
+
     def update(self):
         self.x += game_framework.frame_time * self.speed
         if self.x > 1600:
@@ -34,4 +36,9 @@ class Brick:
 
     def get_bb(self):
         return self.x-90, self.y-20, self.x+90, self.y+20
+
+    def attach_ball(self,ball):
+        # 발판은 볼에대한 리스트가 필요하다
+        self.child_ball.append(ball)
+        ball.set_parent(self)# 볼에 대해서 부모를 설정 링크
 

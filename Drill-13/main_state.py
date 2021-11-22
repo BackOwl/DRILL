@@ -78,27 +78,26 @@ def update():
         game_object.update()
 
     for ball in balls.copy():
-        if ball.moving ==True :ball.move(brick)
+
         if collide(ball, grass):
             ball.stop()
         if collide(ball, boy):
             balls.remove(ball)
             game_world.remove_object(ball)
-        if collide(ball, brick):
-            ball.move(brick)
-            ball.moving = True;
-            for secondball in balls.copy():
-                if collide(ball, secondball):
-                    ball.stop()
-                    ball.move(brick)
-                    ball.y = secondball.y + 21
-        if ball.moving == True:
-            for secondball in balls.copy():
-                if collide(secondball, ball):
-                    secondball.move(brick)
-                    secondball.stop()
-                    #secondball.moving = True;
-                    #secondball.y = ball.y + 21
+        elif collide(ball,brick):
+            # 발판과 충돌이 발생했을 경우 발판에 볼을 담음
+            brick.attach_ball(ball)
+            balls.remove(ball) # 발판에 포함되었기 때문에 충돌체크 x
+            brick.attach_ball(ball)
+        else: #볼이 발판볼과 충돌
+            for brick_ball in brick.child_ball:
+                if collide(ball, brick_ball):
+                    brick.attach_ball(ball)
+                    balls.remove(ball)
+                    break
+
+
+
 
 
 
