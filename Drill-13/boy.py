@@ -1,6 +1,8 @@
 import game_framework
 from pico2d import *
 from ball import Ball
+import collision
+import sever
 
 import game_world
 
@@ -149,13 +151,20 @@ class Boy:
         self.event_que.insert(0, event)
 
     def update(self):
-
         self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
             self.cur_state.exit(self, event)
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
+
+        # 소년과 볼들이 만날때 볼을 없앤다
+        for ball in sever.balls.copy():# copy는 다음시간에 알려줄테니 우선씀
+            if collision.collide(self,ball):
+                # 서버와 월드에서 없앰
+                game_world.remove_object(ball)
+                sever.balls.remove(ball)
+
 
 
     def draw(self):

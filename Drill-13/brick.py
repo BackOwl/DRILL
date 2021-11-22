@@ -23,6 +23,14 @@ class Brick:
             self.x = 0
             self.speed = -self.speed
 
+        #자식의 개수를 확인
+        if len(self.child_ball)>10:
+            # 부모 자식관계를 끊기
+            # 가지고 있던 자식들을 balls로 보낸다
+            # 발판 부시기
+            pass
+
+
 
 
     def draw(self):

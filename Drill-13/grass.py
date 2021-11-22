@@ -1,11 +1,16 @@
 from pico2d import *
+import sever
+import collision
 
 class Grass:
     def __init__(self):
         self.image = load_image('grass.png')
 
     def update(self):
-        pass
+        # 잔디가 볼들으 ㅣ충돌을 검사하도록 함
+        for ball in sever.balls:
+            if collision.collide(ball,self):
+                ball.stop()
 
     def draw(self):
         self.image.draw(400, 30)
