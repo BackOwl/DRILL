@@ -2,6 +2,7 @@ import random
 from pico2d import *
 import game_world
 import game_framework
+import brick
 
 
 class Ball:
@@ -13,9 +14,11 @@ class Ball:
         if Ball.image == None:
             Ball.image = load_image('ball21x21.png')
         self.x, self.y, self.fall_speed = random.randint(0, 1600-1), 600, random.randint(Ball.MIN_FALL_SPEED, Ball.MAX_FALL_SPEED)
-
+        self.brick_speed = 0
+        self.moving = False
     def get_bb(self):
         # fill here
+
         return self.x - 10, self.y - 10, self.x + 10, self.y + 10
 
     def draw(self):
@@ -25,6 +28,10 @@ class Ball:
 
     def update(self):
         self.y -= self.fall_speed * game_framework.frame_time
+        self.x = self.x +game_framework.frame_time * self.brick_speed
+
+    def move(self,brick):
+        self.brick_speed = brick.speed
 
 
     def stop(self):

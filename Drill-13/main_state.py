@@ -32,7 +32,6 @@ def collide(a, b):
 
 
 
-
 def enter():
     global boy
     boy = Boy()
@@ -79,11 +78,33 @@ def update():
         game_object.update()
 
     for ball in balls.copy():
+        if ball.moving ==True :ball.move(brick)
         if collide(ball, grass):
             ball.stop()
         if collide(ball, boy):
             balls.remove(ball)
             game_world.remove_object(ball)
+        if collide(ball, brick):
+            ball.move(brick)
+            ball.moving = True;
+            for secondball in balls.copy():
+                if collide(ball, secondball):
+                    ball.stop()
+                    ball.move(brick)
+                    ball.y = secondball.y + 21
+        if ball.moving == True:
+            for secondball in balls.copy():
+                if collide(secondball, ball):
+                    secondball.move(brick)
+                    secondball.stop()
+                    #secondball.moving = True;
+                    #secondball.y = ball.y + 21
+
+
+
+
+
+
 
 
 def draw():
