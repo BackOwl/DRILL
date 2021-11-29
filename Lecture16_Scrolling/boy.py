@@ -70,8 +70,8 @@ class WalkingState:
 
 
     def draw(boy):
-        cx, cy = boy.x - server.background.window_left, boy.y-server.background.window_bottom
-
+       # cx, cy = boy.x - server.background.window_left, boy.y-server.background.window_bottom
+        cx, cy = server.background.canvas_width//2, server.background.canvas_height//2
         boy.font.draw(cx - 40, cy + 40, '(%d, %d)' % (boy.x, boy.y), (255, 255, 0))
 
         if boy.x_velocity > 0:
@@ -137,11 +137,13 @@ class Boy:
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
 
-        self.x = clamp(50,self.x,server.background.w -50)
-        self.y = clamp(50,self.y , server.background.h-50)
+        #self.x = clamp(50,self.x,server.background.w -50)
+        #self.y = clamp(50,self.y , server.background.h-50)
 
     def draw(self):
         self.cur_state.draw(self)
+        #
+
 
 
     def handle_event(self, event):

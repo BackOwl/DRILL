@@ -9,7 +9,8 @@ import game_world
 from boy import Boy
 # fill here background 모듈에서 fixedbackground를 Background로 이름바꿔서 가져온다
 #from background import FixedBackground as Background
-from background import TileBackground as Background
+#from background import TileBackground as Background
+from background import InfiniteBackground as Background
 
 
 
